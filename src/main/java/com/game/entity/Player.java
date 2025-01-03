@@ -3,11 +3,13 @@ package com.game.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
-import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @NamedQueries({
-        @NamedQuery(name = "Player_GetAllCount",
+        @NamedQuery(name = "All_Players",
+                query = "from Player"),
+        @NamedQuery(name = "Players_Count",
                 query = "select count(*) from Player")
 })
 

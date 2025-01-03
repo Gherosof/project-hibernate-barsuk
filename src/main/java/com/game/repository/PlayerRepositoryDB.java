@@ -4,6 +4,8 @@ import com.game.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -14,6 +16,11 @@ import jakarta.annotation.PreDestroy;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+@NamedQueries({
+        @NamedQuery(name = "Player_GetAllCount",
+                query = "select count(*) from Player")
+})
+
 
 @Repository(value = "db")
 public class PlayerRepositoryDB implements IPlayerRepository {
@@ -52,7 +59,7 @@ public class PlayerRepositoryDB implements IPlayerRepository {
     public int getAllCount() {
         int result = 0;
         try(Session session = sessionFactory.openSession()) {
-            Query<Integer> namedQuery = session.createNamedQuery("Player_GetAllCount", Integer.class);
+            Query<Integer> namedQuery = session.createNamedQuery("Players_Count", Integer.class);
             result = namedQuery.uniqueResult();
         }
         return result;
